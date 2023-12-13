@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.wrapper {
+  max-inline-size: 1125px;
+  margin: auto;
+}
