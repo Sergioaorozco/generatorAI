@@ -9,7 +9,7 @@
   
   async function run() {
     isLoading.value = true;
-    const genAi = new GoogleGenerativeAI(import.meta.env.MODE.VITE_GOOGLE_AI_KEY) 
+    const genAi = new GoogleGenerativeAI(import.meta.env.PROD.VITE_GOOGLE_AI_KEY) 
     const model = genAi.getGenerativeModel({model: 'gemini-pro'});
     const result = await model.generateContent(inputText.value);
     try {
