@@ -34,7 +34,7 @@
 </script>
 <template>
 
-  <div v-if="isLoading" class="wrapper">
+  <div v-if="isFetching" class="wrapper">
     <div class="flex w-full mt-20">
       <Skeleton size="4rem" class="mr-2"></Skeleton>
       <div class="w-full">
