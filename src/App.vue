@@ -2,20 +2,20 @@
   import { GoogleGenerativeAI } from '@google/generative-ai';
   import { useQuery } from "@tanstack/vue-query";
 
-  const { isPending, isError, data } = useQuery({
+  const { isPending, isLoading,  isError, data } = useQuery({
   queryKey: ['response'],
   queryFn: getGenData,
   enabled: false
 })
   import {ref} from 'vue'
 
-  let isLoading = ref(false)
+  let loaderSkeleton = ref(false)
   let output = ref('')
   let inputText = ref('')
 
   
   async function getGenData() {
-    isLoading.value = true;
+    loaderSkeleton.value = true;
     const genAi = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_AI_KEY) 
     const model = genAi.getGenerativeModel({model: 'gemini-pro'});
     const result = await model.generateContent(inputText.value);
@@ -26,7 +26,7 @@
     } catch(error) {
       console.error(error)
     } finally {
-      isLoading.value = false
+      loaderSkeleton.value = false
     }
   }
 
