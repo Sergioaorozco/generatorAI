@@ -16,7 +16,7 @@
   
   async function getGenData() {
     loaderSkeleton.value = true;
-    const genAi = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_AI_KEY) 
+    const genAi = new GoogleGenerativeAI(import.meta.env.VITE_VERCEL_GOOGLE_AI_KEY) 
     const model = genAi.getGenerativeModel({model: 'gemini-pro'});
     const result = await model.generateContent(inputText.value);
     try {
