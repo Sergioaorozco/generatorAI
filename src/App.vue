@@ -1,6 +1,7 @@
 <script setup>
   import { GoogleGenerativeAI } from '@google/generative-ai';
   import { useQuery } from "@tanstack/vue-query";
+  import {marked} from 'marked'
 
   const { isPending, isLoading,  isError, data } = useQuery({
   queryKey: ['response'],
@@ -22,7 +23,7 @@
     try {
       const response = result.response;
       const text = response.candidates[0].content.parts[0].text
-      output.value = text
+      output.value = marked.parse(text)
     } catch(error) {
       console.error(error)
     } finally {
@@ -58,7 +59,7 @@
     <section v-if="output" class=" mt-10 px-4 py-3 bg-slate-100 border border-slate-200 rounded-lg">
       <h2 class="text-xl font-semibold">Response</h2>
       <hr class="mb-4">
-      <p>{{ output }}</p>
+      <p v-html="output"></p>
     </section>
   </main>
 </template>

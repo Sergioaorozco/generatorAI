@@ -11,6 +11,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.1.1",
     "@tanstack/vue-query": "^5.13.4",
+    "marked": "^11.1.0",
     "primevue": "^3.44.0",
     "vue": "^3.3.11"
   },
