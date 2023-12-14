@@ -3,11 +3,11 @@
   import { useQuery } from "@tanstack/vue-query";
   import {marked} from 'marked'
 
-  const { isPending, isLoading,  isError, data } = useQuery({
-  queryKey: ['response'],
+  const { isFetching,  isError} = useQuery({
+  queryKey: ['getAi'],
   queryFn: getGenData,
-  enabled: false
-})
+  enabled: false,
+  })
   import {ref} from 'vue'
 
   let loaderSkeleton = ref(false)
@@ -16,18 +16,20 @@
 
   
   async function getGenData() {
+    if(inputText !== '') {
     loaderSkeleton.value = true;
     const genAi = new GoogleGenerativeAI(import.meta.env.VITE_VERCEL_GOOGLE_AI_KEY) 
     const model = genAi.getGenerativeModel({model: 'gemini-pro'});
     const result = await model.generateContent(inputText.value);
-    try {
-      const response = result.response;
-      const text = response.candidates[0].content.parts[0].text
-      output.value = marked.parse(text)
-    } catch(error) {
-      console.error(error)
-    } finally {
-      loaderSkeleton.value = false
+      try {
+        const response = result.response;
+        const text = response.candidates[0].content.parts[0].text
+        output.value = marked.parse(text)
+      } catch(error) {
+        console.error(error)
+      } finally {
+        loaderSkeleton.value = false
+      }
     }
   }
 
